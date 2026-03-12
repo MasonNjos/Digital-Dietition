@@ -1,9 +1,9 @@
 # 1. Basic Functionality
 
 1. The system shall read a cronometer report PDF from input.
-2. The system shall then highlight the nutritents that go above the target by at least 10%.
+2. The system shall then highlight the nutritents that go above the target by at least 10%, grouped by category (protein, carbs, vitamins, etc.).
 3. ~~The system shall display the top 10 foods that contain the high nutrient in decreasing order.~~ (can't do this with the PDF, not sure how it could be implemented)
-4. The system shall highlight the nutrients that are under the target by at least 10%.
+4. The system shall highlight the nutrients that are under the target by at least 10%, grouped by category (protein, carbs, vitamins, etc.).
 5. The system shall recommend 5 foods that are high in the low nutrient in decreasing order.
 
 ## 2. Future Improvements
