@@ -1,4 +1,4 @@
-# 1. Basic Functionality
+## 1. Basic Functionality
 
 1. The system shall read a cronometer report PDF from input.
 2. The system shall then highlight the nutritents that go above the target by at least 10%, grouped by category (protein, carbs, vitamins, etc.).
