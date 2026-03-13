@@ -1,2 +1,2 @@
-# Digital-Dietition
+# Digital-Dietitian
 
