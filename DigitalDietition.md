@@ -7,12 +7,14 @@
 5. The system shall recommend 5 foods that are high in the low nutrient in decreasing order.
 6. The system shall highlight abnormalities in biometric data. For example in one report my blood glucose peaked at 349 AND was 187 average, this should be highlighted.
 
-## 2. Future Improvements
+## 2. Trend Recognition
+1. The system shall identify trends in biometric data. For example, if a user sees a consistent spike in blood glucose after eating rice, the system should highlight this potential correlation.
+2. The system shall identify trends relating biometric data to exercise data. For example, if a user logged a run and saw a lower blood glucose peak for that day, the system should highlight this.
+3. The system shall identify trends correlating exercise to health habits. For example, if a user logs a run and makes better food choices for their goals, the system should highlight this.
+
+## 3. Smarter Targets
 
 1. The system shall prompt the user for a weight goal. This goal could be gain weight, lose weight, or maintain weight.
 2. The system shall prompt the user for a health goal. This could be control blood glucose, bone health, heart health, etc.
 3. The system shall prompt the user for a fitness goal. This should include different fitness types including weight lifting, calisthenics, running, swimming, gymnastics, sports, etc.
 4. The system shall recommend nutrient goals and foods based on goals and biometric info including weight, height, age, and gender. This part will take some research
-5. The system shall identify trends in biometric data. For example, if a user sees a consistent spike in blood glucose after eating rice, the system should highlight this potential correlation.
-6. The system shall identify trends relating biometric data to exercise data. For example, if a user logged a run and saw a lower blood glucose peak for that day, the system should highlight this.
-7. The system shall identify trends correlating exercise to health habits. For example, if a user logs a run and makes better food choices for their goals, the system should highlight this.
