@@ -78,4 +78,15 @@ public class NutritionLog {
 
     public List<NutrientEntry> getMinerals() { return minerals; }
     public void setMinerals(List<NutrientEntry> minerals) { this.minerals = minerals; }
+
+    public List<NutrientEntry> getAllNutrients() {
+        List<NutrientEntry> all = new ArrayList<>();
+        all.addAll(general);
+        all.addAll(carbohydrates);
+        all.addAll(lipids);
+        all.addAll(protein);
+        all.addAll(vitamins);
+        all.addAll(minerals);
+        return all;
+    }
 }

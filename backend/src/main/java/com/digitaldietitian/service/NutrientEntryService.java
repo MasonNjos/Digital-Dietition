@@ -31,6 +31,13 @@ public class NutrientEntryService {
                     result.add(entry);
                 }
             }
+            // get all nutrients and filter by pct < thresholdPct
+            for (NutrientEntry entry : log.getAllNutrients()) {
+                if (entry.getPct() != null && entry.getPct() < thresholdPct) {
+                    result.add(entry);
+                }
+            }
+
         }
 
         return result;
