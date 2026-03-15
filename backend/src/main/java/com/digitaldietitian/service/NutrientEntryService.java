@@ -17,8 +17,8 @@ public class NutrientEntryService {
         this.repository = repository;
     }
 
-    // get all nutrients that are at least 10% under the goal (i.e. pct < 90%)
-    public List<NutrientEntry> getUnder(double thresholdPct) {
+    // get all nutrients that are out of range by a certain percentage (either under or over)
+    public List<NutrientEntry> getOutOfRange(double thresholdPct) {
         List<NutritionLog> allLogs = repository.findAll();
         List<NutrientEntry> result = new ArrayList<>();
 
@@ -26,15 +26,16 @@ public class NutrientEntryService {
             NutritionLog underLog = new NutritionLog();
             underLog.setLogDate(log.getLogDate());
 
-            for (NutrientEntry entry : log.getMinerals()) { // JUST MINERALS FOR NOW
-                if (entry.getPct() != null && entry.getPct() < thresholdPct) {
-                    result.add(entry);
-                }
-            }
             // get all nutrients and filter by pct < thresholdPct
             for (NutrientEntry entry : log.getAllNutrients()) {
-                if (entry.getPct() != null && entry.getPct() < thresholdPct) {
-                    result.add(entry);
+                if (thresholdPct > 100.0) { // over case
+                    if (entry.getPct() != null && entry.getPct() > thresholdPct) {
+                        result.add(entry);
+                    }
+                } else { // under case
+                    if (entry.getPct() != null && entry.getPct() < thresholdPct) {
+                        result.add(entry);
+                    }
                 }
             }
 
@@ -42,7 +43,6 @@ public class NutrientEntryService {
 
         return result;
 
-
     }
-    
+  
 }

@@ -25,12 +25,23 @@ public class NutrientEntryController {
 
     // -------------------------------------------------------------------------
     // GET /api/nutrition/under
-    // returns all nutrients at least 10% under the goal
+    // returns all nutrients x% under the goal
     // --------------------------------------------------------------------------
-    @GetMapping("/under")
-    public ResponseEntity<List<NutrientEntry>> getUnder() {
-        double threshold = 90.0; // 90% of the goal means 10% under
-        List<NutrientEntry> entries = service.getUnder(threshold);
+    @GetMapping("/under/{threshold}")
+    public ResponseEntity<List<NutrientEntry>> getUnder(@PathVariable double threshold) {
+        threshold = 100.0 - threshold; // 90% of the goal means 10% under
+        List<NutrientEntry> entries = service.getOutOfRange(threshold);
+        return ResponseEntity.ok(entries);
+    }
+
+    // -------------------------------------------------------------------------
+    // GET /api/nutrition/over
+    // returns all nutrients at least 10% over the goal
+    // --------------------------------------------------------------------------
+    @GetMapping("/over/{threshold}")
+    public ResponseEntity<List<NutrientEntry>> getOver(@PathVariable double threshold) {
+        threshold += 100.0; // 110% of the goal means 10% over
+        List<NutrientEntry> entries = service.getOutOfRange(threshold);
         return ResponseEntity.ok(entries);
     }
     
