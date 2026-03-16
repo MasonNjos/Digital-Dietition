@@ -15,6 +15,9 @@ public class Food {
     @Column(nullable = false)
     private String name;        // e.g. "Salmon", "Spinach"
 
+    @Column(name = "serving_size")
+    private String servingSize;   // e.g. "1 cup (255g)"
+
     @ElementCollection
     @CollectionTable(
         name = "food_nutrients",
@@ -24,13 +27,16 @@ public class Food {
 
     public Food() {}
 
-    public Food(String name) {
+    public Food(String name, String servingSize) {
         this.name = name;
+        this.servingSize = servingSize;
     }
 
     public Long getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+    public String getServingSize() { return servingSize; }
+    public void setServingSize(String servingSize) { this.servingSize = servingSize; }
     public List<NutrientEntry> getNutrients() { return nutrients; }
     public void setNutrients(List<NutrientEntry> nutrients) { this.nutrients = nutrients; }
 }
