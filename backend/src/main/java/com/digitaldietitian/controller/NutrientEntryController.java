@@ -12,7 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import com.digitaldietitian.entity.Food;
+import com.digitaldietitian.service.FoodService;
+import com.digitaldietitian.entity.FoodNutrientDTO;
 
 @RestController
 @RequestMapping("/api/nutrition")
@@ -23,14 +29,16 @@ public class NutrientEntryController {
         this.service = service;
     }
 
+    
+
     // -------------------------------------------------------------------------
     // GET /api/nutrition/under
     // returns all nutrients x% under the goal
     // --------------------------------------------------------------------------
     @GetMapping("/under/{threshold}")
-    public ResponseEntity<List<NutrientEntry>> getUnder(@PathVariable double threshold) {
-        threshold = 100.0 - threshold; // 90% of the goal means 10% under
-        List<NutrientEntry> entries = service.getOutOfRange(threshold);
+    public ResponseEntity<List<FoodNutrientDTO>> getUnder(@PathVariable double threshold) {
+
+        List<FoodNutrientDTO> entries = service.getOutOfRange(threshold);
         return ResponseEntity.ok(entries);
     }
 
@@ -39,9 +47,9 @@ public class NutrientEntryController {
     // returns all nutrients at least 10% over the goal
     // --------------------------------------------------------------------------
     @GetMapping("/over/{threshold}")
-    public ResponseEntity<List<NutrientEntry>> getOver(@PathVariable double threshold) {
+    public ResponseEntity<List<FoodNutrientDTO>> getOver(@PathVariable double threshold) {
         threshold += 100.0; // 110% of the goal means 10% over
-        List<NutrientEntry> entries = service.getOutOfRange(threshold);
+        List<FoodNutrientDTO> entries = service.getOutOfRange(threshold);
         return ResponseEntity.ok(entries);
     }
     

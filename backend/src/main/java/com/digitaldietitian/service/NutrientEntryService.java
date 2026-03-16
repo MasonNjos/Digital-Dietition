@@ -7,42 +7,54 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.digitaldietitian.entity.FoodNutrientDTO;
+import com.digitaldietitian.service.FoodService;
+import java.util.stream.Collectors;
+
 
 @Service
 public class NutrientEntryService {
     
     private final NutritionLogRepository repository;
+    private final FoodService foodService;
+
     
-    public NutrientEntryService(NutritionLogRepository repository) {
+    public NutrientEntryService(NutritionLogRepository repository, FoodService foodService) {
         this.repository = repository;
+        this.foodService = foodService;
     }
 
-    // get all nutrients that are out of range by a certain percentage (either under or over)
-    public List<NutrientEntry> getOutOfRange(double thresholdPct) {
-        List<NutritionLog> allLogs = repository.findAll();
-        List<NutrientEntry> result = new ArrayList<>();
+    public List<FoodNutrientDTO> getOutOfRange(double thresholdPct) {
+    List<NutritionLog> allLogs = repository.findAll();
+    List<FoodNutrientDTO> dtoList = new ArrayList<>();
 
-        for (NutritionLog log : allLogs) {
-            NutritionLog underLog = new NutritionLog();
-            underLog.setLogDate(log.getLogDate());
+    for (NutritionLog log : allLogs) {
+        List<NutrientEntry> result = new ArrayList<>();  // reset per log
 
-            // get all nutrients and filter by pct < thresholdPct
-            for (NutrientEntry entry : log.getAllNutrients()) {
-                if (thresholdPct > 100.0) { // over case
-                    if (entry.getPct() != null && entry.getPct() > thresholdPct) {
-                        result.add(entry);
-                    }
-                } else { // under case
-                    if (entry.getPct() != null && entry.getPct() < thresholdPct) {
-                        result.add(entry);
-                    }
+        for (NutrientEntry entry : log.getAllNutrients()) {
+            if (thresholdPct > 100.0) { // over case
+                if (entry.getPct() != null && entry.getPct() > thresholdPct) {
+                    result.add(entry);
+                }
+            } else { // under case
+                if (entry.getPct() != null && entry.getPct() < thresholdPct) {
+                    result.add(entry);
                 }
             }
-
         }
 
-        return result;
-
+        // build DTOs for this log and add to master list
+        result.stream()
+            .map(entry -> new FoodNutrientDTO(
+                entry,
+                foodService.getFoodsByNutrient(entry.getName())
+            ))
+            .forEach(dtoList::add);
     }
+
+    return dtoList;
+}
+
+
   
 }
